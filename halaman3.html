@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tebak 😏</title><style>
 body{
     margin:0;
@@ -10,22 +11,24 @@ body{
     align-items:center;
     background:linear-gradient(135deg,#ff758c,#ff7eb3);
     font-family:'Poppins',sans-serif;
-    overflow:hidden;
+    overflow-x:hidden;
+    overflow-y:hidden;
     color:white;
 }
 
 /* CARD */
 .card{
-    width:320px;
-    padding:30px;
+    width:90px;
+    padding:320px;
     border-radius:20px;
     background:rgba(255,255,255,.2);
     backdrop-filter:blur(10px);
     text-align:center;
     position:relative;
     z-index:1;
+    box-sizing:border-box;
 }
-
+ 
 /* BUTTON */
 button{
     margin:5px;
@@ -200,6 +203,31 @@ button{
 .envelope.open .flap{
     transform:rotateX(180deg);
     z-index:0;
+}
+@media (max-width:600px){
+
+    .card{
+        width:90%;
+        padding:25px;
+    }
+
+    h2{
+        font-size:28px;
+    }
+
+    p{
+        font-size:16px;
+    }
+
+    button{
+        font-size:14px;
+        padding:10px 12px;
+    }
+
+    .envelope{
+        width:90%;
+        max-width:270px;
+    }
 }
 </style></head>
 <body><div class="card" id="card">

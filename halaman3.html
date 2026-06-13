@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Tebak 😏</title><style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    font-family:'Poppins',sans-serif;
+    overflow:hidden;
+    color:white;
+}
+
+/* CARD */
+.card{
+    width:320px;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(255,255,255,.2);
+    backdrop-filter:blur(10px);
+    text-align:center;
+    position:relative;
+    z-index:1;
+}
+
+/* BUTTON */
+button{
+    margin:5px;
+    padding:10px 15px;
+    border:none;
+    border-radius:20px;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+}
+
+/* SPARKLE */
+.sparkle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    box-shadow:0 0 10px white;
+    animation:gerak 3s linear infinite;
+}
+
+@keyframes gerak{
+    0%{transform:translateY(0); opacity:0;}
+    50%{opacity:1;}
+    100%{transform:translateY(-200px); opacity:0;}
+}
+
+/* POPUP FIX UTAMA */
+#popup{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+/* AMPLOP */
+.envelope{
+    width:270px;
+    height:220px;
+    background:linear-gradient(135deg,#ff8fa3,#ff4d6d);
+    position:relative;
+    border-radius:14px;
+    cursor:pointer;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.25);
+}
+
+/* pola titik dekorasi di badan amplop */
+.envelope::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.25) 2px, transparent 2.5px);
+    background-size:18px 18px;
+    z-index:1;
+    opacity:.6;
+}
+
+/* pita / segel di tengah amplop */
+.seal{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:54px;
+    height:54px;
+    background:radial-gradient(circle at 35% 35%, #fff0f3, #ffb3c1 60%, #ff4d6d 100%);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    box-shadow:0 4px 10px rgba(0,0,0,.25), inset 0 0 0 2px rgba(255,255,255,.6);
+    z-index:3;
+    transition:0.4s;
+}
+
+/* heart kecil dekorasi di pojok2 amplop */
+.deco-heart{
+    position:absolute;
+    font-size:16px;
+    opacity:.55;
+    z-index:3;
+    pointer-events:none;
+}
+.deco-heart.h1{ top:10px; left:14px; }
+.deco-heart.h2{ bottom:14px; right:18px; }
+.deco-heart.h3{ top:14px; right:50px; font-size:12px; }
+
+/* TUTUP */
+.flap{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#ff6f91;
+    clip-path:polygon(0 0,50% 50%,100% 0);
+    z-index:3;
+    transform-origin:top;
+    transition: 0,5s;
+}
+.flap::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:linear-gradient(135deg, rgba(255,255,255,.18), transparent 60%);
+}
+
+/* SURAT */
+.letter{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background:#fff;
+    background-image:
+        linear-gradient(rgba(225,77,109,.18) 2px, transparent 2px);
+    background-size:100% 26px;
+
+    color:#333;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    transform:translateY(100%);
+    transition:0.6s;
+    padding:15px;
+    box-sizing:border-box;
+    z-index: 1;
+}
+
+/* SAAT DIBUKA */
+.envelope.open{
+    overflow:visible;
+    height:auto;
+    min-height:180px;
+    transform: translateY(10px);
+}
+.envelope.open .letter{
+    transform:translateY(0);
+}
+.envelope.open .seal{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(0.3);
+    pointer-events: none;
+}
+
+/* BUTTON LANJUT */
+#btnLanjut{
+    margin-top:10px;
+    padding:8px 15px;
+    border:none;
+    border-radius:15px;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+    display:none;
+    position: relative;
+    z-index: 30;
+}
+.envelope.open .flap{
+    transform:rotateX(180deg);
+    z-index:0;
+}
+</style></head>
+<body><div class="card" id="card">
+    <h2>Tebak yaaa 😏</h2><p>Apa yang selalu ada di pikiran aku?</p>
+
+<button onmouseover="kabur(this)">🍜 Makan</button>
+<button onmouseover="kabur(this)">😴 Tidur</button>
+<button onclick="jawabBenar()">😳 Kamu</button>
+
+<p id="hasil"></p>
+
+</div><!-- POPUP AMPOP --><div id="popup">
+    <div class="envelope" onclick="bukaSurat()">
+        <span class="deco-heart h1">💖</span>
+        <span class="deco-heart h2">💌</span>
+        <span class="deco-heart h3">✨</span>
+        <div class="seal">💕</div>
+        <div class="flap"></div>
+        <div class="letter">
+            <p id="isi"></p>
+            <button id="btnLanjut" onclick="lanjut()">Lanjut 💖</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// tombol kabur
+function kabur(btn){
+    let card = document.getElementById("card");
+    let x = Math.random() * (card.offsetWidth - 80);
+    let y = Math.random() * (card.offsetHeight - 40);
+
+    btn.style.position="absolute";
+    btn.style.left=x+"px";
+    btn.style.top=y+"px";
+}
+
+// klik benar
+function jawabBenar(){
+    document.getElementById("hasil").innerHTML="Yeayyy jawaban kamu benar 💖";
+    document.getElementById("popup").style.display="flex";
+}
+
+// buka amplop
+function bukaSurat(){
+    let env = document.querySelector(".envelope");
+    env.classList.add("open");
+
+    let teks = "Yeayyy jawaban kamu benar 💖\n\nKarena kamu benar klik ini 😏";
+
+    ketik(teks, document.getElementById("isi"));
+
+    setTimeout(()=>{
+        document.getElementById("btnLanjut").style.display="block";
+    },2500);
+}
+
+// lanjut
+function lanjut(){
+   location.href="./halaman4.html";
+}
+
+// efek ketik
+function ketik(teks, el){
+    let i=0;
+    el.innerHTML="";
+    function jalan(){
+        if(i<teks.length){
+            el.innerHTML+=teks[i]=="\n"?"<br>":teks[i];
+            i++;
+            setTimeout(jalan,40);
+        }
+    }
+    jalan();
+}
+
+// sparkle
+setInterval(()=>{
+    let s=document.createElement("div");
+    s.className="sparkle";
+    s.style.left=Math.random()*window.innerWidth+"px";
+    s.style.bottom="0px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),8000);
+},300);
+</script></body>
+</html>

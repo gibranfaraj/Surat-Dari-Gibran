@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hai 👋</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    overflow:hidden;
+}
+/* CARD */
+.card {
+    position: relative;
+    padding: 40px;
+    width: 300px;
+    text-align: center;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    color: white;
+    animation: fade 1s ease;
+}
+
+@keyframes fade {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* GAMBAR */
+.card img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid white;
+    margin-bottom: 15px;
+    animation: naikTurun 3s ease-in-out infinite;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+@keyframes naikTurun {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+}
+@keyframes muncul{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+p{
+    line-height:1.6;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.emoji{
+    font-size:70px;
+    animation:lompat 2s infinite;
+}
+
+@keyframes lompat{
+    50%{
+        transform:translateY(-10px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <img src="fotoku2.jpg" alt="Foto Aku">
+    <h1 id= "sapaan" >Hai Kamu!</h1>
+
+    <p>
+        Selamat datang di website buatan orang ganteng sedunia
+    </p>
+
+    <p>
+        Tapi karena kamu sudah masuk,
+        berarti kamu wajib lanjut awokwok 😏
+    </p>
+
+    <button onclick="location.href='halaman3.html'">
+        Lanjut ➜
+    </button>
+
+</div>
+<script>
+let nama = localStorage.getItem("namaUser");
+
+if(nama){
+    document.getElementById("sapaan").innerText = "Hai " + nama + "!";
+}
+</script>
+</body>
+</html>

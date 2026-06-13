@@ -182,7 +182,12 @@ function gambar(timestamp){
 
     ctx.fillStyle = "rgba(0,0,0,0.25)";
     ctx.fillRect(0,0,canvas.width,canvas.height);
-
+stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${Math.random()})`;
+    ctx.fill();
+});
     kata.forEach(k=>{
 
         if(lewat > k.delay){
@@ -209,7 +214,16 @@ function gambar(timestamp){
             );
         }
     });
+const stars = [];
 
+for(let i=0;i<100;i++){
+    stars.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        o:Math.random()
+    });
+}
     requestAnimationFrame(gambar);
 }
 

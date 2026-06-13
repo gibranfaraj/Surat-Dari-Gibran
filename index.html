@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You 💖</title>
 
 <style>
@@ -41,7 +42,9 @@ body {
 .card {
     position: relative;
     padding: 40px;
-    width: 300px;
+    width: 90px;
+    max-width: 300px;
+    box-sizing: border-box;
     text-align: center;
     border-radius: 20px;
     backdrop-filter: blur(15px);
@@ -111,6 +114,30 @@ button:hover {
     0% {transform: translateY(0); opacity: 1;}
     100% {transform: translateY(-800px); opacity: 0;}
 }
+    
+@media (max-width: 600px){
+
+    .card{
+        width: 90%;
+        padding: 25px;
+    }
+
+    .card img{
+        width: 100px;
+        height: 100px;
+    }
+
+    h2{
+        font-size: 24px;
+    }
+
+    input,
+    button{
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 </style>
 
 </head>

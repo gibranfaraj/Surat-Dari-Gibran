@@ -171,7 +171,16 @@ function siapkanKata(){
 
 siapkanKata();
 window.addEventListener("resize", siapkanKata);
+const stars = [];
 
+for(let i=0;i<100;i++){
+    stars.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        o:Math.random()
+    });
+}
 let mulai = null;
 
 function gambar(timestamp){
